@@ -76,7 +76,7 @@
 	})
 
 	$(window).keypress(function (e) {
-		  if (e.keyCode === 115 || startallow == 0) {
+		  if (e.keyCode === 115 && startallow == 0) {
 		    e.preventDefault()
 		    start();
 		  }
