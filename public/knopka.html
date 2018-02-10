@@ -66,6 +66,7 @@
 	var counter = 1;
 	var arr = [];
 	var keyallow = 1;
+	var startallow = 0;
 
 	$(window).keypress(function (e) {
 		  if (e.keyCode === 114) {
@@ -75,13 +76,13 @@
 	})
 
 	$(window).keypress(function (e) {
-		  if (e.keyCode === 115) {
+		  if (e.keyCode === 115 || startallow == 0) {
 		    e.preventDefault()
 		    start();
 		  }
 	})
 
- $(".start").click(function(){
+ $(".start").click(function(){	
  	start();
  })
 
@@ -106,6 +107,7 @@ function start() {
 	$(".start").prop( "disabled", true );
  	fals = 0;
  	keyallow = 1;
+ 	startallow = 1
  	$(".start").blur(); 
  	var vr = Math.floor(Math.random() * 2000) + 1000; 
  	console.log(vr);
@@ -146,6 +148,7 @@ function stop() {
 		 	$(".start").prop( "disabled", false );
 		 	$(".knopka").prop( "disabled", false );
 		 	keyallow = 1;
+		 	startallow = 0;
 		 	fals = 0;
 }
 
