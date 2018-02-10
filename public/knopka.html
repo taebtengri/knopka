@@ -66,8 +66,44 @@
 	var counter = 1;
 	var arr = [];
 	var keyallow = 1;
+
+	$(window).keypress(function (e) {
+		  if (e.keyCode === 114) {
+		    e.preventDefault()
+		    stop();
+		  }
+	})
+
+	$(window).keypress(function (e) {
+		  if (e.keyCode === 115) {
+		    e.preventDefault()
+		    start();
+		  }
+	})
+
  $(".start").click(function(){
- 	$(".start").prop( "disabled", true );
+ 	start();
+ })
+
+  $(".stop").click(function(){
+		 	stop();
+ 	})
+
+ 	$(".knopka").click(function(){
+ 			knopka()
+ 	})
+
+ 	$(window).keypress(function (e) {
+		  if (e.keyCode === 107 || e.keyCode === 32) {
+		    e.preventDefault()
+		    if (keyallow == 1) {
+		    	knopka()
+			}
+		  }
+	})
+
+function start() {
+	$(".start").prop( "disabled", true );
  	fals = 0;
  	keyallow = 1;
  	$(".start").blur(); 
@@ -101,31 +137,17 @@
  	}
  	
  	}
- 	
- })
+}
 
-  $(".stop").click(function(){
-		 	clearTimeout(interval)
+function stop() {
+	clearTimeout(interval)
 		 	$(".time").html("0:000");
 		 	$(".svet").removeClass("red");
 		 	$(".start").prop( "disabled", false );
 		 	$(".knopka").prop( "disabled", false );
 		 	keyallow = 1;
 		 	fals = 0;
- 	})
-
- 	$(".knopka").click(function(){
- 			knopka()
- 	})
-
- 	$(window).keypress(function (e) {
-		  if (e.keyCode === 107 || e.keyCode === 32) {
-		    e.preventDefault()
-		    if (keyallow == 1) {
-		    	knopka()
-			}
-		  }
-	})
+}
 
 function average(arr){
 	var sum = 0;
