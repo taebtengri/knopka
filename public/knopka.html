@@ -65,9 +65,11 @@
 	var interval;
 	var counter = 1;
 	var arr = [];
+	var keyallow = 1;
  $(".start").click(function(){
  	$(".start").prop( "disabled", true );
  	fals = 0;
+ 	keyallow = 1;
  	$(".start").blur(); 
  	var vr = Math.floor(Math.random() * 2000) + 1000; 
  	console.log(vr);
@@ -108,6 +110,7 @@
 		 	$(".svet").removeClass("red");
 		 	$(".start").prop( "disabled", false );
 		 	$(".knopka").prop( "disabled", false );
+		 	keyallow = 1;
 		 	fals = 0;
  	})
 
@@ -118,7 +121,9 @@
  	$(window).keypress(function (e) {
 		  if (e.keyCode === 107 || e.keyCode === 32) {
 		    e.preventDefault()
-		    knopka()
+		    if (keyallow == 1) {
+		    	knopka()
+			}
 		  }
 	})
 
@@ -140,10 +145,12 @@ function knopka() {
  				counter++;
  				$(".knopka").prop( "disabled", true );
  				$(".start").prop( "disabled", true );
+ 				keyallow = 0;
  				return;
  			}
 		 	clearTimeout(interval);
 		 	$(".knopka").prop( "disabled", true );
+		 	keyallow = 0;
 		 	$("table").append("<tr><td>" + counter + "</td><td>" + $(".time").html() + "</td></tr>")
 		 	var str = $(".time").html();
 		 	arr.push(Number(str));
