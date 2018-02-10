@@ -1,0 +1,30 @@
+{
+  "name": "knopka",
+  "version": "1.0.0",
+  "description": "knopka",
+  "main": "public/main.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Shakir Mammadzada",
+  "license": "ISC",
+  "bugs": {
+    "url": ""
+  },
+  "dependencies": {
+
+    "body-parser": "^1.17.1",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.2",
+    "express-session": "^1.15.2"
+  },
+  "devDependencies": {
+  },
+  "homepage": ""
+}
