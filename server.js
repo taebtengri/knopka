@@ -31,3 +31,9 @@ app.get("/knopka", function(req, res) {
   res.sendFile(path.join(__dirname, "/public/knopka.html"));
 
 });
+
+app.get("/duyme", function(req, res) {
+
+  res.sendFile(path.join(__dirname, "/public/duyme.html"));
+
+});

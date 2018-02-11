@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Breyn rinq düyməsi</title>
+	<script src="https://code.jquery.com/jquery.js">
+	</script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="/public/style.css">
+</head>
+
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12">
+			<h1 align="center" class="logo">Breyn rinq düymə trenajoru</h1>
+			<h4 align="center">Səsi açın. Qırmızı düymənin yerinə klaviaturadaki boşluq ya da k düymələrindən istifadə etmək olar, Start və Başdan düymələrin yerinə isə klaviaturadaki s və r düymələrindən istifadə etmək olar.</h4>
+			<h4 align="center">Start düyməsinin aktivasiyası ilə "Vaxt" səsinin və siqnalın arasındakı zaman aralığı hər dəfə fərqli olur.</h4><br><br>
+			
+		</div>
+		
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<h3>Keçən vaxt: <span class="time">0:000</span></h3>
+			<button type="button" class="btn btn-lg btn-default start">
+			Start
+            </button>
+            <button type="button" class="btn btn-lg btn-default stop">
+			Başdan
+            </button>
+            <div class="svet ">
+            <br>
+            <br>
+            <h1 align="center" class="white">VAXT</h1>
+            <br>
+            <br>
+            </div>
+            <br>
+
+		</div>
+		<div class="col-sm-6 right">
+			<button type="button" class="btn btn-danger btn-circle btn-xl knopka">
+            </button> <br>
+            <h3>Ortalama reaksiya vaxtı: <span class="average">0:000</span></h3><br><br>
+            <table class="table">
+			  <tr>
+			    <th>Cəhd</th>
+			    <th>Reaksiya vaxtı</th>
+			  </tr>
+
+			</table>
+		</div>
+	</div>
+	
+</div>
+	
+</body>
+
+<script type="text/javascript">
+	var fals = 0;
+	var interval;
+	var counter = 1;
+	var arr = [];
+	var keyallow = 1;
+	var startallow = 0;
+
+	$(window).keypress(function (e) {
+		  if (e.keyCode === 114) {
+		    e.preventDefault()
+		    stop();
+		  }
+	})
+
+	$(window).keypress(function (e) {
+		  if (e.keyCode === 115 && startallow == 0) {
+		    e.preventDefault()
+		    start();
+		  }
+	})
+
+ $(".start").click(function(){	
+ 	start();
+ })
+
+  $(".stop").click(function(){
+		 	stop();
+ 	})
+
+ 	$(".knopka").click(function(){
+ 			knopka()
+ 	})
+
+ 	$(window).keypress(function (e) {
+		  if (e.keyCode === 107 || e.keyCode === 32) {
+		    e.preventDefault()
+		    if (keyallow == 1) {
+		    	knopka()
+			}
+		  }
+	})
+
+function start() {
+	$(".start").prop( "disabled", true );
+ 	fals = 0;
+ 	keyallow = 1;
+ 	startallow = 1
+ 	$(".start").blur(); 
+ 	var vr = Math.floor(Math.random() * 2000) + 1000; 
+ 	console.log(vr);
+ 	setTimeout(audio, vr)
+ 	function audio() {
+ 	if (fals == 0) {
+	 	new Audio('./public/vaxt.mp3').play()
+		 	var vr1 = Math.floor(Math.random() * 500) + 1000;
+		 	console.log(vr1);
+		 	setTimeout(audio1, vr1) 
+		 	function audio1() {
+		 		if (fals == 0) {
+		 			new Audio('./public/beep.mp3').play()
+				 	fals = 1;
+				 	$(".svet").addClass("red");
+				 	var startTime = Date.now();
+
+					interval = setInterval(function() {
+
+					    var elapsedTime = Date.now() - startTime;
+					    if (elapsedTime > 9000) {
+							clearInterval(interval);
+						}
+					    $(".time").html((elapsedTime / 1000).toFixed(3));
+					}, 1);
+		 		}
+	 	}
+
+ 	}
+ 	
+ 	}
+}
+
+function stop() {
+	clearTimeout(interval)
+		 	$(".time").html("0:000");
+		 	$(".svet").removeClass("red");
+		 	$(".start").prop( "disabled", false );
+		 	$(".knopka").prop( "disabled", false );
+		 	keyallow = 1;
+		 	startallow = 0;
+		 	fals = 0;
+}
+
+function average(arr){
+	var sum = 0;
+	for( var i = 0; i < arr.length; i++ ){
+	    sum += arr[i]; 
+	}
+
+	return (sum/arr.length).toFixed(3);
+}
+
+function knopka() {
+	if (fals == 0) {
+ 				alert("Falstart!")
+ 				clearTimeout(interval);
+ 				fals = 1;
+ 				$("table").append("<tr><td>" + counter + "</td><td>Falstart</td></tr>")
+ 				counter++;
+ 				$(".knopka").prop( "disabled", true );
+ 				$(".start").prop( "disabled", true );
+ 				keyallow = 0;
+ 				return;
+ 			}
+		 	clearTimeout(interval);
+		 	$(".knopka").prop( "disabled", true );
+		 	keyallow = 0;
+		 	$("table").append("<tr><td>" + counter + "</td><td>" + $(".time").html() + "</td></tr>")
+		 	var str = $(".time").html();
+		 	arr.push(Number(str));
+		 	console.log(arr);
+		 	average(arr);
+		 	$(".average").html(average(arr).toString());
+
+		 	counter++;
+}
+
+
+
+	
+</script>
+
+
+
+</html>
